@@ -1,0 +1,100 @@
+:root {
+    --background-color: #F9F9F9;
+    --text-color: #333333;
+    --primary-color: #4A90E2;
+    --secondary-color: #F5A623;
+    --border-color: #DDDDDD;
+}
+
+.dark-theme {
+    --background-color: #302e2e;
+    --text-color: #EAEAEA;
+    --primary-color: #1E88E5;
+    --secondary-color: #FFB74D;
+    --border-color: #535353;
+}
+
+.theme-tech {
+    --primary-color: #007BFF;
+    --secondary-color: #4A4A4A;
+    --background-color: #F4F4F4;
+    --text-color: #222222;
+}
+
+.theme-science {
+    --primary-color: #4CAF50;
+    --secondary-color: #607D8B;
+    --background-color: #E8F5E9;
+    --text-color: #263238;
+}
+
+.theme-business {
+    --primary-color: #34495E;
+    --secondary-color: #D35400;
+    --background-color: #ECF0F1;
+    --text-color: #2C3E50;
+}
+
+.theme-art {
+    --primary-color: #E91E63;
+    --secondary-color: #FFEB3B;
+    --background-color: #FFF3E0;
+    --text-color: #311B92;
+}
+
+.theme-gaming {
+    --primary-color: #9C27B0;
+    --secondary-color: #FF5722;
+    --background-color: #1E1E1E;
+    --text-color: #F0F0F0;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.fondo {
+    background-color: var(--background-color);
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Aumenta la especificidad de los selectores */
+.nav-links .nav-link {
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 0.5rem 0;
+    transition: color 0.3s ease;
+    position: relative;
+    color: var(--primary-color);
+}
+
+.nav-links .nav-link:hover,
+.nav-links .nav-link.active {
+    color: var(--secondary-color);
+}
+
+.nav-links .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--secondary-color);
+    transition: width 0.3s ease;
+}
+
+.nav-links .nav-link:hover::after,
+.nav-links .nav-link.active::after {
+    width: 100%;
+}
