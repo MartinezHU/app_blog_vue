@@ -5,7 +5,7 @@ import { CdArrowSwap } from '@kalimahapps/vue-icons';
 import { useAuthStore } from '../store/authStore';
 import { useAuth } from '../composables/useAuth';
 import type { LoginCredentials } from '../models/login_credential.model';
-import {  useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 const email = ref('');
 const password = ref('');
 const errorMessage = ref('');
@@ -24,18 +24,11 @@ async function submitForm() {
     authStore.loading = true;
 
     const credentials: LoginCredentials = {
-        app_name: import.meta.env.VUE_APP_NAME,
         email: email.value,
         password: password.value
     };
 
     try {
-        // Simulando una solicitud a la API
-        await new Promise(resolve => setTimeout(resolve, 1000));
-
-        // Aquí iría la lógica real para iniciar sesión
-        console.log('Login with:', email.value, password.value);
-
         await login(credentials);
 
         if (authStore.isLogin) {
@@ -44,6 +37,7 @@ async function submitForm() {
 
         // Reset de campos y errores
         errorMessage.value = '';
+        password.value = '';
     } catch (error) {
         errorMessage.value = 'Error al iniciar sesión. Inténtalo de nuevo.';
     } finally {

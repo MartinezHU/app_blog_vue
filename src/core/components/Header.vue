@@ -3,11 +3,14 @@ import { ref, watch } from 'vue';
 import { useSettings } from '../store/userSettings';
 import { useAuthStore } from '../../modules/auth/store/authStore';
 import AuthModal from '../../modules/auth/views/AuthModal.vue';
-
+import { FlDarkTheme } from '@kalimahapps/vue-icons';
+import { useAuth } from '../../modules/auth/composables/useAuth';
 const isMobileMenuOpen = ref(false);
 const storeSettings = useSettings();
 
 const authStore = useAuthStore();
+
+const { logout } = useAuth();
 
 function toggleMobileMenu() {
   isMobileMenuOpen.value = !isMobileMenuOpen.value;
@@ -36,18 +39,11 @@ function toggleAuthModal() {
 watch(
   () => authStore.isAuthenticated, // Observamos autenticación
   (newValue) => {
-    debugger; // Puedes usar esta línea para depurar en el navegador con Vue DevTools
-    console.log("Estado de autenticación cambió:", newValue);
     if (newValue) {
       authStore.showModal = false; // Cerrar modal cuando el usuario inicia sesión
     }
   }
 );
-
-
-function logout() {
-  authStore.logout(); // Cierra la sesión
-}
 
 function initializeDarkMode() {
   let darkMode = localStorage.getItem('darkMode');
@@ -97,12 +93,17 @@ initializeDarkMode();
         <ul class="nav-links">
           <!-- <li><a href="#" class="nav-link active">Inicio</a></li> -->
           <li>
+            <div>
+
+            </div>
             <a v-if="authStore.isAuthenticated" class="nav-link" type="button" @click="logout">Cerrar sesión</a>
             <a v-else class="nav-link" type="button" @click="toggleAuthModal">Iniciar
               sesión</a>
           </li>
           <li>
-            <a type="button" class="nav-link" @click="toggleDarkMode">Cambiar color</a>
+            <a type="button" class="nav-link" style="font-weight: bolder;" @click="toggleDarkMode">
+              <FlDarkTheme />
+            </a>
           </li>
         </ul>
       </nav>

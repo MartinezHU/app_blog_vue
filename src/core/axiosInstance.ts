@@ -5,11 +5,9 @@ const axiosIntance = axios.create({
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
-    // "X-App-Version": "1.0.0",
-    // "X-App-Platform": "web",
-    // "X-App-Language": "es",
     "X-App-Name": "app_blog",
   },
+  withCredentials: true,
 });
 
 axiosIntance.interceptors.request.use(

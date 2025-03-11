@@ -1,6 +1,14 @@
 <script setup lang="ts">
 import Header from './core/components/Header.vue';
 import Footer from './core/components/Footer.vue';
+import { useAuth } from './modules/auth/composables/useAuth';
+import { onMounted } from 'vue';
+
+const { checkAuth } = useAuth();
+
+onMounted(() => {
+    checkAuth();
+});
 </script>
 
 <template>

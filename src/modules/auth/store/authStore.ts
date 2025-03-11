@@ -1,6 +1,5 @@
 import { defineStore } from "pinia";
 import Cookies from "js-cookie";
-import type { JWTTokens } from "../models/tokens.model";
 
 export const useAuthStore = defineStore("auth", {
   state: () => ({
@@ -8,6 +7,8 @@ export const useAuthStore = defineStore("auth", {
     showModal: false, // Show login modal flag
     isLogin: true, // Default to login form
     isAuthenticated: !!Cookies.get("access"), // Check if user is authenticated
+    isStaff: false, // Check if user is staff
+    username: "", // User's username
   }),
   actions: {
     // Toggle login modal visibility
@@ -23,24 +24,16 @@ export const useAuthStore = defineStore("auth", {
       this.isLogin = false;
     },
     // Login user with provided credentials
-    login(token: JWTTokens) {
+    login(username: string, isStaff: boolean) {
       this.isAuthenticated = true;
-      Cookies.set("access", token.access_token, {
-        expires: 7,
-        secure: true,
-        sameSite: "strict",
-      });
-      Cookies.set("refresh", token.refresh_token, {
-        expires: 7,
-        secure: true,
-        sameSite: "strict",
-      });
+      this.username = username;
+      this.isStaff = isStaff;
     },
     // Logout user
     logout() {
       this.isAuthenticated = false;
-      Cookies.remove("access");
-      Cookies.remove("refresh");
+      this.isStaff = false;
+      // Remove any other cookies you may have set
     },
   },
 });
