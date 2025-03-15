@@ -2,8 +2,11 @@
 import { ref, computed } from 'vue';
 import { useAuthStore } from '../store/authStore';
 import { CdArrowSwap } from '@kalimahapps/vue-icons';
+import { useAuth } from '../composables/useAuth';
+import type { SignUpData } from '../models/signup_data';
 
 const authStore = useAuthStore();
+const { signup } = useAuth();
 
 const name = ref('');
 const email = ref('');
@@ -36,10 +39,16 @@ async function submitSignUp() {
     loading.value = true;
     try {
         // Simulando una solicitud a la API
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        // await new Promise(resolve => setTimeout(resolve, 1000));
 
         // Aquí iría la lógica real para registrarse
         console.log('Sign up with:', name.value, email.value, password.value);
+        const signUpData: SignUpData = {
+            email: email.value,
+            password1: password.value,
+            password2: confirmPassword.value
+        };
+        await signup(signUpData);
 
         // Reset de campos y errores
         errorMessage.value = '';
